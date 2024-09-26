@@ -1,6 +1,29 @@
 const { db } = require("../firebase");
 const { v4: uuidv4 } = require("uuid");
 
+
+
+const getRestriccionById = async (restrictionId,res) => {}
+
+const getRestriccionByReason = async (reason,res) => {
+  try{
+    const querySnapshot = await db.collection("restrictions")
+    .where("reason","==",reason)
+    .get(); 
+    if (querySnapshot.empty) {
+      res.status(404).send('Restricciones no encontradas')
+    }
+    const data = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return res.status(200).json(data);
+
+  }catch(error){
+    return res.status(500).send("Error al obtener las restricciones por su razón.");
+  }
+}
+
 const getRestrictionsByStudent = async (studentId,res) => {
   try {
     const querySnapshot = await db.collection("restrictions")
@@ -84,4 +107,5 @@ module.exports = {
   assignRestriction,
   removeRestriction,
   getAllRestrictions,
+  getRestriccionByReason,
 };
