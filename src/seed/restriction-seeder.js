@@ -1,5 +1,7 @@
 const { db } = require("../firebase");
 const { v4: uuidv4 } = require("uuid");
+const { Timestamp } = require('firebase-admin/firestore');
+
 
 
 const seedData = [
@@ -18,13 +20,12 @@ const seedFirestore = async () => {
   
       seedData.forEach((data) => {
         const docRef = db.collection("restrictions").doc(uuidv4()); 
-        const currentTime = new Date().toLocaleString(); 
   
         
         batch.set(docRef, {
           ...data, 
-          student_id: uuidv4(),  
-          created_at: currentTime,  
+          studentId: uuidv4(),  
+          createdAt: Timestamp.now().toDate(),  
         });
       });
   

@@ -8,6 +8,7 @@ const {
   removeRestriction,
   getAllRestrictions,
   getRestriccionByReason,
+  getRestriccionById,
 } = require("../controllers/restrictionsController");
 
 router.get('/reason', async (req, res) => {
@@ -15,7 +16,11 @@ router.get('/reason', async (req, res) => {
   return await getRestriccionByReason(reason, res);
 });
 
-router.get("/:studentId", async (req, res) => {
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  return await getRestriccionById(id, res);
+});
+router.get("/student/:studentId", async (req, res) => {
   const { studentId } = req.params;
   return await getRestrictionsByStudent(studentId,res);
   
