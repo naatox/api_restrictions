@@ -79,12 +79,10 @@ const hasRestrictions = async (studentId,res) => {
       .where("studentId", "==", studentId)
       .get();
 
-    if(!querySnapshot.empty) return res.status(200).send("Estudiante con restricciones.");
-  }catch(error){
-    res.status(500).send("Error al validar el estudiante.");
-
+     return res.status(200).json(!querySnapshot.empty);
+  } catch (error) {
+    res.status(500).send("Error al obtener las restricciones del estudiante.");
   }
-  res.status(200).send("Estudiante sin restricciones.");
 };
 
 const assignRestriction = async (studentId, reason,res) => {
