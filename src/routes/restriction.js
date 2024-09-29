@@ -9,6 +9,7 @@ const {
   getAllRestrictions,
   getRestriccionByReason,
   getRestriccionById,
+  removeByReason,
 } = require("../controllers/restrictionsController");
 
 router.get('/reason', async (req, res) => {
@@ -39,6 +40,10 @@ router.post("/assign", async (req, res) => {
  // admin ?
 router.delete("/remove/:restrictionId", async (req, res) => {
   return await removeRestriction(restrictionId, res);
+});
+router.delete("/remove/reason/:reason", async (req, res) => {
+  const { restrictionId } = req.params;
+  return await removeByReason(restrictionId, res);
 });
 
 router.get("/", async (req, res) => {

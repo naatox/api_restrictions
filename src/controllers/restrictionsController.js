@@ -3,7 +3,22 @@ const { v4: uuidv4 } = require("uuid");
 const { Timestamp } = require('firebase-admin/firestore');
 
 
-
+const removeByReason = async (reason,res) => {
+  try {
+    const querySnapshot = await db.collection("restrictions")
+    .where("reason","==",reason)
+    .get(); 
+    if (querySnapshot.empty) {
+      res.status(404).send('Restricciones no encontradas')
+    }
+    querySnapshot.forEach(async (doc) => {
+      await doc.ref.delete();
+    });
+    return res.status(200).send('Restricciones eliminadas');
+  } catch (error) {
+    return res.status(500).send("Error al eliminar las restricciones por su razón.");
+  }
+};
  // nuevo endpoint
 const getRestriccionById = async (id,res) => {
   try{
@@ -161,4 +176,5 @@ module.exports = {
   getAllRestrictions,
   getRestriccionByReason,
   getRestriccionById,
+  removeByReason,
 };
