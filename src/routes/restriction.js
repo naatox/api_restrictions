@@ -39,11 +39,12 @@ router.post("/assign", async (req, res) => {
 });
  // admin ?
 router.delete("/remove/:restrictionId", async (req, res) => {
+  const { restrictionId } = req.params;
   return await removeRestriction(restrictionId, res);
 });
-router.delete("/remove/reason/:reason", async (req, res) => {
-  const { restrictionId } = req.params;
-  return await removeByReason(restrictionId, res);
+router.delete("/reason/remove", async (req, res) => {
+  const { reason } = req.query;
+  return await removeByReason(reason, res);
 });
 
 router.get("/", async (req, res) => {
