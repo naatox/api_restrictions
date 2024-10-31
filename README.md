@@ -1,7 +1,7 @@
 # Restrictions Service
  
 
-Este es un servicio desarrollado en Node.js y Express dedicado a la gestión de restricciones y limitaciones que puede tener un estudiante.
+Este es un servicio desarrollado en Node.js y Express dedicado a la gestión de restricciones y limitaciones que puede tener un estudiante, en el contexto del desarrollo del Taller 1 para la asignatura de Arquitectura de sistemas.
 
 ## Características
 
